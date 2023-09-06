@@ -163,7 +163,7 @@ fn get_translated(source: &str) -> anyhow::Result<Vec<Item>> {
 fn main() -> anyhow::Result<()> {
     let Args { files } = Args::parse();
     if files.is_empty() || (files.len() == 1 && files[0] == Path::new("-")) {
-        eprintln!("NAME: <stdin>");
+        eprintln!("lazy-static-to-once-cell: <stdin>");
         let mut s = String::new();
         io::stdin().read_to_string(&mut s)?;
         let out = prettyplease::unparse(&File {
@@ -174,13 +174,13 @@ fn main() -> anyhow::Result<()> {
         println!("{}", out);
     } else {
         for file in files {
-            println!("NAME: {}\n", file.display());
+            println!("lazy-static-to-once-cell: {}", file.display());
             let out = prettyplease::unparse(&File {
                 shebang: None,
                 attrs: Vec::new(),
-                items: get_translated(&fs::read_to_string(file)?)?,
+                items: get_translated(&fs::read_to_string(&file)?)?,
             });
-            println!("{}", out);
+            fs::write(file.with_extension("once-cell"), out)?;
         }
     }
     Ok(())
