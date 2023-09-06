@@ -10,12 +10,13 @@ anyhow = "1.0.75"
 clap = { version = "4.4.2", default-features = false, features = [
     "derive",
     "std",
+    "help",
+    "suggestions",
+    "usage",
 ] }
 prettyplease = "0.2.14"
 proc-macro2 = { version = "1.0.66", default-features = false }
 quote = { version = "1.0.33", default-features = false }
-ra_ap_parser = "0.0.172"
-ra_ap_syntax = "0.0.172"
 syn = { version = "2.0.31", default-features = false, features = [
     "full",
     "quote",
